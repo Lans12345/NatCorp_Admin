@@ -36,11 +36,12 @@ dependencies:
   cupertino_icons: ^1.0.2
   firebase_storage:
   image_picker:
-  firebase_core:
+  firebase_core: ^1.12.0
   cloud_firestore:
   get_storage:
   firebase_auth:
   intl:
+  firebase_core_platform_interface: 4.5.1
 
 dev_dependencies:
   flutter_test:
