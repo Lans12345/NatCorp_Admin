@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:nat_corp_admin/widgets/app_bar.dart';
+import 'package:nat_corp_admin/widgets/drawer_widget.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -10,6 +12,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Scaffold(
+        drawer: const DrawerWidget(), appBar: AppbarWidget('Admin'));
   }
 }
