@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
 
 import 'package:get_storage/get_storage.dart';
+import 'package:nat_corp_admin/screens/home_screen.dart';
+import 'package:nat_corp_admin/screens/pages/applicants_page.dart';
+import 'package:nat_corp_admin/screens/pages/companies_page.dart';
+import 'package:nat_corp_admin/screens/pages/interview_history_page.dart';
+import 'package:nat_corp_admin/screens/pages/users_page.dart';
 import 'package:nat_corp_admin/utils/colors.dart';
 import 'package:nat_corp_admin/widgets/text_widget.dart';
 
@@ -47,8 +52,8 @@ class _MyDrawerState extends State<DrawerWidget> {
                 color: Colors.grey,
               ),
               onTap: () {
-                // Navigator.of(context)
-                //     .push(MaterialPageRoute(builder: (context) => ChatRoom()));
+                Navigator.of(context).pushReplacement(MaterialPageRoute(
+                    builder: (context) => const HomeScreen()));
               },
             ),
             ListTile(
@@ -59,20 +64,20 @@ class _MyDrawerState extends State<DrawerWidget> {
                 color: Colors.grey,
               ),
               onTap: () {
-                // Navigator.of(context)
-                //     .push(MaterialPageRoute(builder: (context) => ChatRoom()));
+                Navigator.of(context).pushReplacement(
+                    MaterialPageRoute(builder: (context) => const UsersPage()));
               },
             ),
             ListTile(
               leading: const Icon(Icons.business),
               title: TextBold(
-                text: 'Companies & Histories',
+                text: 'Companies',
                 fontSize: 12,
                 color: Colors.grey,
               ),
               onTap: () {
-                // Navigator.of(context)
-                //     .push(MaterialPageRoute(builder: (context) => ChatRoom()));
+                Navigator.of(context).pushReplacement(MaterialPageRoute(
+                    builder: (context) => const CompaniesPage()));
               },
             ),
             ListTile(
@@ -83,8 +88,8 @@ class _MyDrawerState extends State<DrawerWidget> {
                 color: Colors.grey,
               ),
               onTap: () {
-                // Navigator.of(context)
-                //     .push(MaterialPageRoute(builder: (context) => ChatRoom()));
+                Navigator.of(context).pushReplacement(MaterialPageRoute(
+                    builder: (context) => const ApplicantsPage()));
               },
             ),
             ListTile(
@@ -95,8 +100,8 @@ class _MyDrawerState extends State<DrawerWidget> {
                 color: Colors.grey,
               ),
               onTap: () {
-                // Navigator.of(context)
-                //     .push(MaterialPageRoute(builder: (context) => ChatRoom()));
+                Navigator.of(context).pushReplacement(MaterialPageRoute(
+                    builder: (context) => const InterviewHistoryPage()));
               },
             ),
             ListTile(

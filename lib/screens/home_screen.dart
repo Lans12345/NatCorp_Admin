@@ -13,6 +13,8 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        drawer: const DrawerWidget(), appBar: AppbarWidget('Admin'));
+        backgroundColor: Colors.grey[200],
+        drawer: const DrawerWidget(),
+        appBar: AppbarWidget('Dashboard'));
   }
 }
