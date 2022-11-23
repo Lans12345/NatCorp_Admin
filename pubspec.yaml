@@ -42,6 +42,8 @@ dependencies:
   firebase_auth:
   intl:
   firebase_core_platform_interface: 4.5.1
+  pie_chart:
+  syncfusion_flutter_charts: ^19.1.54
 
 dev_dependencies:
   flutter_test:
