@@ -88,6 +88,18 @@ class _MyDrawerState extends State<DrawerWidget> {
               },
             ),
             ListTile(
+              leading: const Icon(Icons.history),
+              title: TextBold(
+                text: 'Interview History',
+                fontSize: 12,
+                color: Colors.grey,
+              ),
+              onTap: () {
+                // Navigator.of(context)
+                //     .push(MaterialPageRoute(builder: (context) => ChatRoom()));
+              },
+            ),
+            ListTile(
               leading: const Icon(Icons.logout),
               title: TextBold(
                 text: 'Logout',
