@@ -15,6 +15,7 @@ class TextRegular extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       text,
+      overflow: TextOverflow.ellipsis,
       style:
           TextStyle(fontSize: fontSize, color: color, fontFamily: 'QRegular'),
     );
@@ -36,6 +37,8 @@ class TextBold extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       text,
+      overflow: TextOverflow.ellipsis,
+      maxLines: 2,
       style: TextStyle(fontSize: fontSize, color: color, fontFamily: 'QBold'),
     );
   }
