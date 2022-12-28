@@ -1,20 +1,14 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 Future addCompany(
-  String companyName,
-  String companyLogo,
   String positionDetails,
   String position,
-  String companyAddress,
 ) async {
-  final docUser = FirebaseFirestore.instance.collection('Company').doc();
+  final docUser = FirebaseFirestore.instance.collection('Position').doc();
 
   var dt = DateTime.now();
 
   final json = {
-    'companyName': companyName,
-    'companyAddress': companyAddress,
-    'companyLogo': companyLogo,
     'positionDetails': positionDetails,
     'position': position,
     'id': docUser.id,
