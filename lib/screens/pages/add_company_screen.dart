@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:nat_corp_admin/screens/pages/companies_page.dart';
+import 'package:nat_corp_admin/services/repositories/add_comp.dart';
 import 'package:nat_corp_admin/utils/colors.dart';
 import 'package:nat_corp_admin/widgets/button_widget.dart';
 import 'package:nat_corp_admin/widgets/text_widget.dart';
@@ -10,6 +12,7 @@ class AddCompany extends StatelessWidget {
   late String address;
   late String position;
   late String positionDetails;
+  late String imageURL;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -163,7 +166,35 @@ class AddCompany extends StatelessWidget {
               SizedBox(
                 height: 20,
               ),
-              ButtonWidget(onPressed: () {}, text: 'Continue'),
+              ButtonWidget(
+                  onPressed: () {
+                    showDialog(
+                        barrierDismissible: false,
+                        context: context,
+                        builder: (context) => AlertDialog(
+                              content: TextRegular(
+                                  text: "Company Added Succesfully!",
+                                  color: Colors.black,
+                                  fontSize: 12),
+                              actions: <Widget>[
+                                MaterialButton(
+                                  onPressed: () {
+                                    addCompany(name, imageURL, positionDetails,
+                                        position, address);
+                                    Navigator.of(context).pushReplacement(
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                const CompaniesPage()));
+                                  },
+                                  child: TextBold(
+                                      text: 'Continue',
+                                      color: Colors.black,
+                                      fontSize: 12),
+                                ),
+                              ],
+                            ));
+                  },
+                  text: 'Continue'),
             ],
           ),
         ),
