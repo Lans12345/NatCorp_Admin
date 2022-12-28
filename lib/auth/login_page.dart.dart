@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:nat_corp_admin/auth/signup_page.dart.dart';
 import 'package:nat_corp_admin/screens/home_screen.dart';
+import 'package:nat_corp_admin/utils/colors.dart';
 
 import '../widgets/text_widget.dart';
 
@@ -29,7 +30,7 @@ class _LoginPageState extends State<LoginPage> {
             children: [
               Image.asset('assets/images/logo.png'),
               Padding(
-                padding: const EdgeInsets.fromLTRB(30, 50, 30, 10),
+                padding: const EdgeInsets.fromLTRB(30, 10, 30, 10),
                 child: TextFormField(
                   style: const TextStyle(
                       color: Colors.black, fontFamily: 'QRegular'),
@@ -113,7 +114,7 @@ class _LoginPageState extends State<LoginPage> {
                   borderRadius: BorderRadius.circular(10),
                 ),
                 minWidth: 250,
-                color: Colors.blue,
+                color: Kgradient1,
                 onPressed: () async {
                   late var status;
                   try {

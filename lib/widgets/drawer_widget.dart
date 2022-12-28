@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:get_storage/get_storage.dart';
+import 'package:nat_corp_admin/auth/login_page.dart.dart';
 import 'package:nat_corp_admin/screens/home_screen.dart';
 import 'package:nat_corp_admin/screens/pages/applicants_page.dart';
 import 'package:nat_corp_admin/screens/pages/companies_page.dart';
@@ -137,10 +138,10 @@ class _MyDrawerState extends State<DrawerWidget> {
                             ),
                             MaterialButton(
                               onPressed: () {
-                                // Navigator.of(context).pushReplacement(
-                                //     MaterialPageRoute(
-                                //         builder: (context) =>
-                                //             const LogInPage()));
+                                Navigator.of(context).pushReplacement(
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            const LoginPage()));
                               },
                               child: const Text(
                                 'Continue',
