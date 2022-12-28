@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:nat_corp_admin/screens/pages/add_company_screen.dart';
 import 'package:nat_corp_admin/utils/colors.dart';
@@ -31,53 +32,80 @@ class _DashboardPageState extends State<CompaniesPage> {
       backgroundColor: Colors.grey[200],
       drawer: const DrawerWidget(),
       appBar: AppbarWidget('Companies'),
-      body: ListView.builder(itemBuilder: ((context, index) {
-        return Padding(
-          padding: const EdgeInsets.all(5.0),
-          child: Container(
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10), color: Colors.white),
-            child: Row(children: [
-              Container(
-                child: Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: Image.asset('assets/images/fblogo.png'),
-                ),
-                height: 100,
-                width: 100,
-                color: Colors.grey,
-              ),
-              const SizedBox(
-                width: 10,
-              ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  TextBold(
-                      text: 'Name: Facebook Inc.',
-                      fontSize: 14,
-                      color: Colors.black),
-                  TextRegular(
-                      text: 'Address: Cagayan De Oro City',
-                      fontSize: 12,
-                      color: Colors.grey),
-                  const SizedBox(
-                    height: 5,
-                  ),
-                  TextBold(
-                      text: 'Available positions',
-                      fontSize: 12,
-                      color: Colors.black),
-                  TextRegular(
-                      text: 'Office Clerk, Graphic Designer, Network Engineer',
-                      fontSize: 10,
-                      color: Colors.grey),
-                ],
-              ),
-            ]),
-          ),
-        );
-      })),
+      body: StreamBuilder<QuerySnapshot>(
+          stream: FirebaseFirestore.instance.collection('Company').snapshots(),
+          builder:
+              (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+            if (snapshot.hasError) {
+              print(snapshot.error);
+              return const Center(child: Text('Error'));
+            }
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              print('waiting');
+              return const Padding(
+                padding: EdgeInsets.only(top: 50),
+                child: Center(
+                    child: CircularProgressIndicator(
+                  color: Colors.black,
+                )),
+              );
+            }
+
+            final data = snapshot.requireData;
+            return ListView.builder(
+                itemCount: snapshot.data!.size,
+                itemBuilder: ((context, index) {
+                  return Padding(
+                    padding: const EdgeInsets.all(5.0),
+                    child: Container(
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          color: Colors.white),
+                      child: Row(children: [
+                        Container(
+                          child: Padding(
+                            padding: const EdgeInsets.all(10.0),
+                            child:
+                                Image.network(data.docs[index]['companyLogo']),
+                          ),
+                          height: 100,
+                          width: 100,
+                          color: Colors.grey,
+                        ),
+                        const SizedBox(
+                          width: 10,
+                        ),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            TextBold(
+                                text:
+                                    'Name: ${data.docs[index]['companyName']}',
+                                fontSize: 14,
+                                color: Colors.black),
+                            TextRegular(
+                                text:
+                                    'Address: ${data.docs[index]['companyAddress']}',
+                                fontSize: 12,
+                                color: Colors.grey),
+                            const SizedBox(
+                              height: 5,
+                            ),
+                            TextBold(
+                                text: 'Available positions',
+                                fontSize: 12,
+                                color: Colors.black),
+                            TextRegular(
+                                text: '${data.docs[index]['position']}',
+                                fontSize: 10,
+                                color: Colors.grey),
+                          ],
+                        ),
+                      ]),
+                    ),
+                  );
+                }));
+          }),
     );
   }
 }
