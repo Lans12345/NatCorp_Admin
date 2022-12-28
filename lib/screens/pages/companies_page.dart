@@ -19,7 +19,7 @@ class _DashboardPageState extends State<CompaniesPage> {
       floatingActionButton: FloatingActionButton(
         backgroundColor: Kgradient1,
         onPressed: (() {}),
-        child: Icon(
+        child: const Icon(
           Icons.add,
           color: Colors.white,
         ),
@@ -65,9 +65,8 @@ class _DashboardPageState extends State<CompaniesPage> {
                       fontSize: 12,
                       color: Colors.black),
                   TextRegular(
-                      text:
-                          'Office Clerk, Graphic Designer, Network Engineer hahah',
-                      fontSize: 12,
+                      text: 'Office Clerk, Graphic Designer, Network Engineer',
+                      fontSize: 10,
                       color: Colors.grey),
                 ],
               ),
