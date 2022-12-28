@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nat_corp_admin/utils/colors.dart';
 import 'package:nat_corp_admin/widgets/text_widget.dart';
 
 import '../../widgets/app_bar.dart';
@@ -15,6 +16,14 @@ class _DashboardPageState extends State<CompaniesPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: Kgradient1,
+        onPressed: (() {}),
+        child: Icon(
+          Icons.add,
+          color: Colors.white,
+        ),
+      ),
       backgroundColor: Colors.grey[200],
       drawer: const DrawerWidget(),
       appBar: AppbarWidget('Companies'),
