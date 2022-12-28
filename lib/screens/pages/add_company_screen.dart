@@ -1,18 +1,105 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:nat_corp_admin/screens/pages/companies_page.dart';
 import 'package:nat_corp_admin/services/repositories/add_comp.dart';
 import 'package:nat_corp_admin/utils/colors.dart';
 import 'package:nat_corp_admin/widgets/button_widget.dart';
 import 'package:nat_corp_admin/widgets/text_widget.dart';
-
+import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
+import 'package:image_picker/image_picker.dart';
+import 'package:path/path.dart' as path;
+import 'dart:io';
 import '../../widgets/app_bar.dart';
 
-class AddCompany extends StatelessWidget {
+class AddCompany extends StatefulWidget {
+  @override
+  State<AddCompany> createState() => _AddCompanyState();
+}
+
+class _AddCompanyState extends State<AddCompany> {
   late String name = '';
-  late String address;
-  late String position;
-  late String positionDetails;
-  late String imageURL;
+
+  late String address = '';
+
+  late String position = '';
+
+  late String positionDetails = '';
+
+  late String imageURL = '';
+
+  firebase_storage.FirebaseStorage storage =
+      firebase_storage.FirebaseStorage.instance;
+
+  late String fileName = '';
+
+  late File imageFile;
+
+  bool hasLoaded = false;
+
+  Future<void> uploadPicture(String inputSource) async {
+    final picker = ImagePicker();
+    XFile pickedImage;
+    try {
+      pickedImage = (await picker.pickImage(
+          source: inputSource == 'camera'
+              ? ImageSource.camera
+              : ImageSource.gallery,
+          maxWidth: 1920))!;
+
+      fileName = path.basename(pickedImage.path);
+      imageFile = File(pickedImage.path);
+
+      try {
+        showDialog(
+          context: context,
+          barrierDismissible: false,
+          builder: (BuildContext context) => Padding(
+            padding: const EdgeInsets.only(left: 30, right: 30),
+            child: AlertDialog(
+                title: Row(
+              children: const [
+                CircularProgressIndicator(
+                  color: Colors.black,
+                ),
+                SizedBox(
+                  width: 20,
+                ),
+                Text(
+                  'Loading . . .',
+                  style: TextStyle(
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                      fontFamily: 'QRegular'),
+                ),
+              ],
+            )),
+          ),
+        );
+
+        await firebase_storage.FirebaseStorage.instance
+            .ref('Logo/$fileName')
+            .putFile(imageFile);
+        imageURL = await firebase_storage.FirebaseStorage.instance
+            .ref('Logo/$fileName')
+            .getDownloadURL();
+
+        setState(() {
+          hasLoaded = true;
+        });
+
+        Navigator.of(context).pop();
+      } on firebase_storage.FirebaseException catch (error) {
+        if (kDebugMode) {
+          print(error);
+        }
+      }
+    } catch (err) {
+      if (kDebugMode) {
+        print(err);
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,15 +118,31 @@ class AddCompany extends StatelessWidget {
               SizedBox(
                 height: 10,
               ),
-              Container(
-                child: Icon(
-                  Icons.add,
-                  color: Colors.white,
-                ),
-                height: 150,
-                width: 150,
-                decoration: BoxDecoration(color: KgreyColor),
-              ),
+              hasLoaded
+                  ? Container(
+                      height: 150,
+                      width: 100,
+                      decoration: BoxDecoration(
+                        color: Colors.transparent,
+                        image: DecorationImage(
+                          image: NetworkImage(imageURL),
+                        ),
+                      ),
+                    )
+                  : GestureDetector(
+                      onTap: () {
+                        uploadPicture('camera');
+                      },
+                      child: Container(
+                        child: Icon(
+                          Icons.add,
+                          color: Colors.white,
+                        ),
+                        height: 150,
+                        width: 150,
+                        decoration: BoxDecoration(color: KgreyColor),
+                      ),
+                    ),
               SizedBox(
                 height: 20,
               ),
