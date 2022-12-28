@@ -56,13 +56,9 @@ class _HomeScreenState extends State<HomeScreen> {
     var querySnapshot = await collection.get();
     if (mounted) {
       setState(() {
-        for (var queryDocumentSnapshot in querySnapshot.docs) {
-          Map<String, dynamic> data = queryDocumentSnapshot.data();
-
-          setState(() {
-            totalComp = data.length;
-          });
-        }
+        setState(() {
+          totalComp = querySnapshot.size;
+        });
       });
     }
   }
