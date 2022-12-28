@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:nat_corp_admin/screens/pages/companies_page.dart';
 import 'package:nat_corp_admin/services/repositories/add_comp.dart';
+import 'package:nat_corp_admin/services/repositories/add_job.dart';
 import 'package:nat_corp_admin/utils/colors.dart';
 import 'package:nat_corp_admin/widgets/button_widget.dart';
 import 'package:nat_corp_admin/widgets/text_widget.dart';
@@ -282,6 +283,7 @@ class _AddCompanyState extends State<AddCompany> {
                               actions: <Widget>[
                                 MaterialButton(
                                   onPressed: () {
+                                    addJob(position);
                                     addCompany(name, imageURL, positionDetails,
                                         position, address);
                                     Navigator.of(context).pushReplacement(
