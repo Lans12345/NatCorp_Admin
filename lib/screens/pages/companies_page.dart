@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nat_corp_admin/screens/pages/add_company_screen.dart';
 import 'package:nat_corp_admin/utils/colors.dart';
 import 'package:nat_corp_admin/widgets/text_widget.dart';
 
@@ -18,7 +19,10 @@ class _DashboardPageState extends State<CompaniesPage> {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         backgroundColor: Kgradient1,
-        onPressed: (() {}),
+        onPressed: (() {
+          Navigator.of(context)
+              .push(MaterialPageRoute(builder: (context) => AddCompany()));
+        }),
         child: const Icon(
           Icons.add,
           color: Colors.white,
