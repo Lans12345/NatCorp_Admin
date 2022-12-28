@@ -236,7 +236,7 @@ class _SignupPageState extends State<SignupPage> {
                                 style: const TextStyle(fontFamily: 'QRegular'),
                               ),
                               actions: <Widget>[
-                                FlatButton(
+                                MaterialButton(
                                   onPressed: () {
                                     Navigator.of(context).pop();
                                   },
