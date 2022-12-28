@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:nat_corp_admin/services/repositories/add_user.dart';
 import 'package:nat_corp_admin/utils/colors.dart';
 import 'package:nat_corp_admin/widgets/button_widget.dart';
 
@@ -183,6 +184,8 @@ class _SignupPageState extends State<SignupPage> {
                   try {
                     await FirebaseAuth.instance.createUserWithEmailAndPassword(
                         email: email, password: password);
+
+                    addAdmin(name, email);
 
                     showDialog(
                         barrierDismissible: false,
