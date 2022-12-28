@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:nat_corp_admin/services/repositories/add_user.dart';
@@ -27,6 +28,10 @@ class _SignupPageState extends State<SignupPage> {
 
   @override
   Widget build(BuildContext context) {
+    final Stream<DocumentSnapshot> userData = FirebaseFirestore.instance
+        .collection('Admin')
+        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .snapshots();
     return Scaffold(
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
@@ -39,6 +44,7 @@ class _SignupPageState extends State<SignupPage> {
             Padding(
               padding: const EdgeInsets.fromLTRB(30, 10, 30, 10),
               child: TextFormField(
+                textCapitalization: TextCapitalization.words,
                 style: const TextStyle(
                     color: Colors.black, fontFamily: 'QRegular'),
                 onChanged: (input) {
@@ -72,6 +78,7 @@ class _SignupPageState extends State<SignupPage> {
             Padding(
               padding: const EdgeInsets.fromLTRB(30, 10, 30, 10),
               child: TextFormField(
+                keyboardType: TextInputType.emailAddress,
                 style: const TextStyle(
                     color: Colors.black, fontFamily: 'QRegular'),
                 onChanged: (input) {
@@ -200,6 +207,7 @@ class _SignupPageState extends State<SignupPage> {
                                     const Icon(
                                       Icons.check_circle_outline_outlined,
                                       size: 75,
+                                      color: Kgradient1,
                                     ),
                                     const SizedBox(
                                       height: 20,
@@ -207,7 +215,7 @@ class _SignupPageState extends State<SignupPage> {
                                     TextBold(
                                         text: 'Registered Succesfully!',
                                         fontSize: 18,
-                                        color: Colors.black),
+                                        color: Kgradient1),
                                     const SizedBox(
                                       height: 50,
                                     ),

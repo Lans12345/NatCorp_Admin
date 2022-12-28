@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nat_corp_admin/utils/colors.dart';
 import 'package:nat_corp_admin/widgets/text_widget.dart';
 
 class ButtonWidget extends StatelessWidget {
@@ -19,7 +20,7 @@ class ButtonWidget extends StatelessWidget {
         borderRadius: BorderRadius.circular(10),
       ),
       minWidth: 250,
-      color: Colors.black,
+      color: Kgradient1,
       onPressed: onPressed,
       child: TextBold(text: text, fontSize: 18, color: Colors.white),
     );
