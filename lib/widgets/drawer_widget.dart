@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get_storage/get_storage.dart';
@@ -22,29 +24,47 @@ class _MyDrawerState extends State<DrawerWidget> {
 
   @override
   Widget build(BuildContext context) {
+    final Stream<DocumentSnapshot> userData = FirebaseFirestore.instance
+        .collection('Admin')
+        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .snapshots();
     return SizedBox(
       width: 220,
       child: Drawer(
         child: ListView(
           padding: const EdgeInsets.only(top: 0),
           children: <Widget>[
-            UserAccountsDrawerHeader(
-              decoration: const BoxDecoration(
-                color: KgreyColor,
-              ),
-              accountEmail:
-                  TextRegular(text: '', fontSize: 0, color: Colors.white),
-              accountName: TextBold(
-                text: 'Nat Corp',
-                fontSize: 18,
-                color: Colors.white,
-              ),
-              currentAccountPicture: const CircleAvatar(
-                minRadius: 80,
-                maxRadius: 80,
-                backgroundImage: AssetImage('assets/images/profile.png'),
-              ),
-            ),
+            StreamBuilder<DocumentSnapshot>(
+                stream: userData,
+                builder: (context, AsyncSnapshot<DocumentSnapshot> snapshot) {
+                  if (!snapshot.hasData) {
+                    return const Center(child: CircularProgressIndicator());
+                  } else if (snapshot.hasError) {
+                    return const Center(child: Text('Something went wrong'));
+                  } else if (snapshot.connectionState ==
+                      ConnectionState.waiting) {
+                    return const Center(child: CircularProgressIndicator());
+                  }
+
+                  dynamic data = snapshot.data;
+                  return UserAccountsDrawerHeader(
+                    decoration: const BoxDecoration(
+                      color: KgreyColor,
+                    ),
+                    accountEmail:
+                        TextRegular(text: '', fontSize: 0, color: Colors.white),
+                    accountName: TextBold(
+                      text: data['name'],
+                      fontSize: 18,
+                      color: Colors.white,
+                    ),
+                    currentAccountPicture: const CircleAvatar(
+                      minRadius: 80,
+                      maxRadius: 80,
+                      backgroundImage: AssetImage('assets/images/profile.png'),
+                    ),
+                  );
+                }),
             ListTile(
               leading: const Icon(Icons.dashboard),
               title: TextBold(
