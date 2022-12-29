@@ -155,14 +155,11 @@ class _DashboardPageState extends State<ApplicantsPage> {
                                                       ButtonWidget(
                                                           onPressed: () {
                                                             addInterview(
-                                                                data.docs[index]
-                                                                    [
+                                                                data.docs[index][
                                                                     'companyName'],
-                                                                data.docs[index]
-                                                                    [
+                                                                data.docs[index][
                                                                     'companyLogo'],
-                                                                data.docs[index]
-                                                                    [
+                                                                data.docs[index][
                                                                     'companyId'],
                                                                 '',
                                                                 data.docs[index]
@@ -179,7 +176,8 @@ class _DashboardPageState extends State<ApplicantsPage> {
                                                                         [
                                                                         'lastName'],
                                                                 data.docs[index]
-                                                                    .id, // change to userId
+                                                                    [
+                                                                    'uid'], // change to userId
                                                                 interviewCode,
                                                                 data.docs[index]
                                                                     ['profile'],
