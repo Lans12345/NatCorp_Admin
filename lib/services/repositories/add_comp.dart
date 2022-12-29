@@ -20,6 +20,9 @@ Future addCompany(
     'id': docUser.id,
     'dateTime': DateTime.now(),
     'date': dt.month,
+    'comments': [],
+    'ratings': 0.00,
+    'reviews': 0
   };
 
   await docUser.set(json);
