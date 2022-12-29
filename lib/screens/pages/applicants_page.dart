@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:nat_corp_admin/widgets/button_widget.dart';
 import 'package:nat_corp_admin/widgets/text_widget.dart';
 
 import '../../widgets/app_bar.dart';
@@ -58,18 +59,37 @@ class _DashboardPageState extends State<ApplicantsPage> {
                                   children: [
                                     ListTile(
                                       onTap: (() {
-                                        Navigator.of(context).pop();
+                                        showDialog(
+                                            context: context,
+                                            builder: (context) {
+                                              return Dialog(
+                                                child: SizedBox(
+                                                  height: 300,
+                                                  child: Column(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .center,
+                                                    children: [
+                                                      ButtonWidget(
+                                                          onPressed: () {},
+                                                          text: 'Continue'),
+                                                    ],
+                                                  ),
+                                                ),
+                                              );
+                                            });
+                                        // Navigator.of(context).pop();
                                       }),
                                       leading: TextBold(
                                           text: 'Accept & Schedule a Meeting',
                                           fontSize: 14,
                                           color: Colors.green),
-                                      trailing: Icon(
+                                      trailing: const Icon(
                                         Icons.check,
                                         color: Colors.green,
                                       ),
                                     ),
-                                    Divider(),
+                                    const Divider(),
                                     ListTile(
                                       onTap: (() {
                                         FirebaseFirestore.instance
@@ -82,7 +102,7 @@ class _DashboardPageState extends State<ApplicantsPage> {
                                           text: 'Reject Application',
                                           fontSize: 14,
                                           color: Colors.red),
-                                      trailing: Icon(
+                                      trailing: const Icon(
                                         Icons.close,
                                         color: Colors.red,
                                       ),
@@ -99,7 +119,7 @@ class _DashboardPageState extends State<ApplicantsPage> {
                         child: Row(children: [
                           Container(
                             child: Padding(
-                              padding: EdgeInsets.all(10.0),
+                              padding: const EdgeInsets.all(10.0),
                               child: CircleAvatar(
                                 minRadius: 25,
                                 maxRadius: 25,
