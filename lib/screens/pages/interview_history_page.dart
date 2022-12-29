@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 import '../../widgets/app_bar.dart';
@@ -19,36 +20,73 @@ class _DashboardPageState extends State<InterviewHistoryPage> {
       drawer: const DrawerWidget(),
       appBar: AppbarWidget('Interview History'),
       body: SingleChildScrollView(
-        child: DataTable(
-            // datatable widget
-            columns: [
-              // column to set the name
-              DataColumn(
-                  label: TextBold(
-                      text: 'Date', fontSize: 16, color: Colors.black)),
-              DataColumn(
-                  label: TextBold(
-                      text: 'Interviewe', fontSize: 16, color: Colors.black)),
-              DataColumn(
-                  label: TextBold(
-                      text: 'Applicant', fontSize: 16, color: Colors.black)),
-            ], rows: [
-          // row to set the values
-          for (int i = 0; i < 50; i++)
-            DataRow(cells: [
-              DataCell(
-                TextRegular(
-                    text: i.toString(), fontSize: 14, color: Colors.grey),
-              ),
-              DataCell(
-                TextRegular(
-                    text: 'Lance Olana', fontSize: 14, color: Colors.grey),
-              ),
-              DataCell(
-                TextRegular(text: 'John Doe', fontSize: 14, color: Colors.grey),
-              ),
-            ])
-        ]),
+        child: StreamBuilder<QuerySnapshot>(
+            stream: FirebaseFirestore.instance
+                .collection('Interviews')
+                .where('type', isEqualTo: 'History')
+                .orderBy('dateTime')
+                .snapshots(),
+            builder:
+                (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+              if (snapshot.hasError) {
+                print('error');
+                return const Center(child: Text('Error'));
+              }
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                print('waiting');
+                return const Padding(
+                  padding: EdgeInsets.only(top: 50),
+                  child: Center(
+                      child: CircularProgressIndicator(
+                    color: Colors.black,
+                  )),
+                );
+              }
+
+              final data = snapshot.requireData;
+
+              return DataTable(
+                  // datatable widget
+                  columns: [
+                    // column to set the name
+                    DataColumn(
+                        label: TextBold(
+                            text: 'Date', fontSize: 16, color: Colors.black)),
+                    DataColumn(
+                        label: TextBold(
+                            text: 'Interviewe',
+                            fontSize: 16,
+                            color: Colors.black)),
+                    DataColumn(
+                        label: TextBold(
+                            text: 'Applicant',
+                            fontSize: 16,
+                            color: Colors.black)),
+                  ], rows: [
+                // row to set the values
+                for (int i = 0; i < snapshot.data!.size; i++)
+                  DataRow(cells: [
+                    DataCell(
+                      TextRegular(
+                          text: data.docs[i]['date'],
+                          fontSize: 14,
+                          color: Colors.grey),
+                    ),
+                    DataCell(
+                      TextRegular(
+                          text: data.docs[i]['companyName'],
+                          fontSize: 14,
+                          color: Colors.grey),
+                    ),
+                    DataCell(
+                      TextRegular(
+                          text: data.docs[i]['userName'],
+                          fontSize: 14,
+                          color: Colors.grey),
+                    ),
+                  ])
+              ]);
+            }),
       ),
     );
   }
