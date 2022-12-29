@@ -68,7 +68,7 @@ class _DashboardPageState extends State<InterviewHistoryPage> {
                   DataRow(cells: [
                     DataCell(
                       TextRegular(
-                          text: data.docs[i]['date'],
+                          text: data.docs[i]['sched'],
                           fontSize: 14,
                           color: Colors.grey),
                     ),
