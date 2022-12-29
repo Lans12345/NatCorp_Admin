@@ -46,6 +46,7 @@ dependencies:
   syncfusion_flutter_charts: ^19.1.54
   flutter_slidable:
   fluttertoast:
+  date_time_picker:
 
 dev_dependencies:
   flutter_test:
