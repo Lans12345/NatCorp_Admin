@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-Future addInterView(
+Future addInterview(
   String companyName,
   String companyLogo,
   String companyId,
