@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:nat_corp_admin/services/repositories/add_ban.dart';
 import 'package:nat_corp_admin/utils/colors.dart';
 import 'package:nat_corp_admin/widgets/button_widget.dart';
 import 'package:nat_corp_admin/widgets/text_widget.dart';
@@ -196,6 +197,18 @@ class _DashboardPageState extends State<UsersPage> {
                                                                         'isBanned':
                                                                             true,
                                                                       });
+
+                                                                      addBan(
+                                                                          data.docs[i]['firstName'] +
+                                                                              ' ' +
+                                                                              data.docs[i][
+                                                                                  'secondName'],
+                                                                          data.docs[i]
+                                                                              [
+                                                                              'email'],
+                                                                          data.docs[i]
+                                                                              .id,
+                                                                          reason);
                                                                       Navigator.of(
                                                                               context)
                                                                           .pop();
@@ -291,6 +304,17 @@ class _DashboardPageState extends State<UsersPage> {
                                                                         'isBanned':
                                                                             true,
                                                                       });
+                                                                      addBan(
+                                                                          data.docs[i]['firstName'] +
+                                                                              ' ' +
+                                                                              data.docs[i][
+                                                                                  'secondName'],
+                                                                          data.docs[i]
+                                                                              [
+                                                                              'email'],
+                                                                          data.docs[i]
+                                                                              .id,
+                                                                          reason);
                                                                       Navigator.of(
                                                                               context)
                                                                           .pop();
@@ -388,6 +412,17 @@ class _DashboardPageState extends State<UsersPage> {
                                                                         'isBanned':
                                                                             true,
                                                                       });
+                                                                      addBan(
+                                                                          data.docs[i]['firstName'] +
+                                                                              ' ' +
+                                                                              data.docs[i][
+                                                                                  'secondName'],
+                                                                          data.docs[i]
+                                                                              [
+                                                                              'email'],
+                                                                          data.docs[i]
+                                                                              .id,
+                                                                          reason);
                                                                       Navigator.of(
                                                                               context)
                                                                           .pop();
@@ -435,48 +470,23 @@ class _DashboardPageState extends State<UsersPage> {
                                               height: 100,
                                               child: ListTile(
                                                 onTap: () {
-                                                  showModalBottomSheet(
-                                                      context: context,
-                                                      builder: (context) {
-                                                        return SizedBox(
-                                                          height: 100,
-                                                          child: ListTile(
-                                                            onTap: () {
-                                                              FirebaseFirestore
-                                                                  .instance
-                                                                  .collection(
-                                                                      'users')
-                                                                  .doc(data
-                                                                      .docs[i]
-                                                                      .id)
-                                                                  .update({
-                                                                'isBanned':
-                                                                    false,
-                                                              });
-                                                              Navigator.of(
-                                                                      context)
-                                                                  .pop();
-                                                              Navigator.of(
-                                                                      context)
-                                                                  .pop();
-                                                              Fluttertoast
-                                                                  .showToast(
-                                                                      msg:
-                                                                          'User unbanned succesfully!');
-                                                            },
-                                                            leading: TextBold(
-                                                                text:
-                                                                    'Unbanned User',
-                                                                fontSize: 15,
-                                                                color: Colors
-                                                                    .green),
-                                                            trailing: const Icon(
-                                                                Icons.close,
-                                                                color: Colors
-                                                                    .green),
-                                                          ),
-                                                        );
-                                                      });
+                                                  FirebaseFirestore.instance
+                                                      .collection('users')
+                                                      .doc(data.docs[i].id)
+                                                      .update({
+                                                    'isBanned': false,
+                                                  });
+
+                                                  Navigator.of(context).pop();
+
+                                                  FirebaseFirestore.instance
+                                                      .collection('Ban')
+                                                      .doc(data.docs[i].id)
+                                                      .delete();
+
+                                                  Fluttertoast.showToast(
+                                                      msg:
+                                                          'User unbanned succesfully!');
                                                 },
                                                 leading: TextBold(
                                                     text: 'Unbanned User',
@@ -505,51 +515,24 @@ class _DashboardPageState extends State<UsersPage> {
                                               height: 100,
                                               child: ListTile(
                                                 onTap: () {
-                                                  showModalBottomSheet(
-                                                      context: context,
-                                                      builder: (context) {
-                                                        return SizedBox(
-                                                          height: 100,
-                                                          child: ListTile(
-                                                            onTap: () {
-                                                              FirebaseFirestore
-                                                                  .instance
-                                                                  .collection(
-                                                                      'users')
-                                                                  .doc(data
-                                                                      .docs[i]
-                                                                      .id)
-                                                                  .update({
-                                                                'isBanned':
-                                                                    false,
-                                                              });
-                                                              Navigator.of(
-                                                                      context)
-                                                                  .pop();
-                                                              Navigator.of(
-                                                                      context)
-                                                                  .pop();
-                                                              Fluttertoast
-                                                                  .showToast(
-                                                                      msg:
-                                                                          'User unbanned succesfully!');
-                                                            },
-                                                            leading: TextBold(
-                                                                text:
-                                                                    'Unbanned User',
-                                                                fontSize: 15,
-                                                                color: Colors
-                                                                    .green),
-                                                            trailing: const Icon(
-                                                                Icons.close,
-                                                                color: Colors
-                                                                    .green),
-                                                          ),
-                                                        );
-                                                      });
+                                                  FirebaseFirestore.instance
+                                                      .collection('users')
+                                                      .doc(data.docs[i].id)
+                                                      .update({
+                                                    'isBanned': false,
+                                                  });
+                                                  FirebaseFirestore.instance
+                                                      .collection('Ban')
+                                                      .doc(data.docs[i].id)
+                                                      .delete();
+                                                  Navigator.of(context).pop();
+
+                                                  Fluttertoast.showToast(
+                                                      msg:
+                                                          'User unbanned succesfully!');
                                                 },
                                                 leading: TextBold(
-                                                    text: 'UnBanned User',
+                                                    text: 'Unbanned User',
                                                     fontSize: 15,
                                                     color: Colors.green),
                                                 trailing: const Icon(
@@ -584,7 +567,12 @@ class _DashboardPageState extends State<UsersPage> {
                                                     'isBanned': false,
                                                   });
                                                   Navigator.of(context).pop();
-                                                  Navigator.of(context).pop();
+
+                                                  FirebaseFirestore.instance
+                                                      .collection('Ban')
+                                                      .doc(data.docs[i].id)
+                                                      .delete();
+
                                                   Fluttertoast.showToast(
                                                       msg:
                                                           'User unbanned succesfully!');
