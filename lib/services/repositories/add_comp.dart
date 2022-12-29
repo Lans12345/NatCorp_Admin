@@ -22,7 +22,9 @@ Future addCompany(
     'date': dt.month,
     'comments': [],
     'ratings': 0.00,
-    'reviews': 0
+    'reviews': 0,
+    'rates': [],
+    'fav': []
   };
 
   await docUser.set(json);
