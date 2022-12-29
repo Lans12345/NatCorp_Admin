@@ -157,7 +157,8 @@ class _MyDrawerState extends State<DrawerWidget> {
                               ),
                             ),
                             MaterialButton(
-                              onPressed: () {
+                              onPressed: () async {
+                                await FirebaseAuth.instance.signOut();
                                 Navigator.of(context).pushReplacement(
                                     MaterialPageRoute(
                                         builder: (context) =>
