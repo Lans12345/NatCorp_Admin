@@ -115,7 +115,7 @@ class _MyDrawerState extends State<DrawerWidget> {
               },
             ),
             ListTile(
-              leading: const Icon(Icons.call),
+              leading: const Icon(Icons.video_call),
               title: TextBold(
                 text: 'Interviews',
                 fontSize: 12,
