@@ -3,6 +3,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import 'package:intl/intl.dart';
+import 'package:nat_corp_admin/utils/colors.dart';
+import 'package:nat_corp_admin/widgets/drawer_widget.dart';
 import 'package:nat_corp_admin/widgets/text_widget.dart';
 
 class InterviewPage extends StatelessWidget {
@@ -12,25 +14,19 @@ class InterviewPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final formKey = GlobalKey<FormState>();
     return Scaffold(
+      drawer: const DrawerWidget(),
       backgroundColor: Colors.grey[200],
       appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        leading: IconButton(
-          icon: const Icon(
-            Icons.arrow_back,
-            color: Color(0xFF075009),
-          ),
-          onPressed: () {
-            Navigator.of(context).pop();
-          },
-        ),
+        centerTitle: true,
+        title:
+            TextRegular(text: 'Interviews', fontSize: 18, color: Colors.white),
+        backgroundColor: KgreyColor,
       ),
       body: StreamBuilder<QuerySnapshot>(
           stream: FirebaseFirestore.instance
               .collection('Interviews')
               .where('myId', isEqualTo: FirebaseAuth.instance.currentUser!.uid)
-              .where('type', isEqualTo: 'Accepted')
+              .where('type', isEqualTo: 'Ongoing')
               // .orderBy('dateTime')
               .snapshots(),
           builder:
@@ -70,18 +66,19 @@ class InterviewPage extends StatelessWidget {
                       ),
                     ),
                     title: TextRegular(
-                        text: data.docs[index]['position'],
+                        text:
+                            'Application for: ' + data.docs[index]['position'],
                         fontSize: 14,
                         color: Colors.black),
                     subtitle: TextRegular(
                         text:
-                            '${data.docs[index]['companyName']} - $formattedTime',
+                            '${data.docs[index]['userName']} - $formattedTime',
                         fontSize: 10,
                         color: Colors.grey),
                     tileColor: Colors.white,
                     leading: CircleAvatar(
                       backgroundImage:
-                          NetworkImage(data.docs[index]['companyLogo']),
+                          NetworkImage(data.docs[index]['userProfilePic']),
                       minRadius: 25,
                       maxRadius: 25,
                       backgroundColor: Colors.transparent,

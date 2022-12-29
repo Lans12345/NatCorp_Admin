@@ -8,6 +8,7 @@ import 'package:nat_corp_admin/screens/home_screen.dart';
 import 'package:nat_corp_admin/screens/pages/applicants_page.dart';
 import 'package:nat_corp_admin/screens/pages/companies_page.dart';
 import 'package:nat_corp_admin/screens/pages/interview_history_page.dart';
+import 'package:nat_corp_admin/screens/pages/interview_page.dart';
 import 'package:nat_corp_admin/screens/pages/users_page.dart';
 import 'package:nat_corp_admin/utils/colors.dart';
 import 'package:nat_corp_admin/widgets/text_widget.dart';
@@ -111,6 +112,18 @@ class _MyDrawerState extends State<DrawerWidget> {
               onTap: () {
                 Navigator.of(context).pushReplacement(MaterialPageRoute(
                     builder: (context) => const ApplicantsPage()));
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.call),
+              title: TextBold(
+                text: 'Interviews',
+                fontSize: 12,
+                color: Colors.grey,
+              ),
+              onTap: () {
+                Navigator.of(context).pushReplacement(MaterialPageRoute(
+                    builder: (context) => const InterviewPage()));
               },
             ),
             ListTile(
