@@ -51,13 +51,13 @@ class _DashboardPageState extends State<ApplicantsPage> {
                           color: Colors.white),
                       child: Row(children: [
                         Container(
-                          child: const Padding(
+                          child: Padding(
                             padding: EdgeInsets.all(10.0),
                             child: CircleAvatar(
                               minRadius: 25,
                               maxRadius: 25,
                               backgroundImage:
-                                  AssetImage('assets/images/profile.png'),
+                                  NetworkImage(data.docs[index]['profile']),
                             ),
                           ),
                           height: 100,
