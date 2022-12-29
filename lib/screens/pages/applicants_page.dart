@@ -195,6 +195,18 @@ class _DashboardPageState extends State<ApplicantsPage> {
                                                                   'Accepted'
                                                             });
 
+                                                            FirebaseFirestore
+                                                                .instance
+                                                                .collection(
+                                                                    'users')
+                                                                .doc(data.docs[
+                                                                        index]
+                                                                    ['uid'])
+                                                                .update({
+                                                              'status':
+                                                                  'Not hired'
+                                                            });
+
                                                             Navigator.of(
                                                                     context)
                                                                 .pop();
