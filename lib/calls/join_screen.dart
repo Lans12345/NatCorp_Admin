@@ -3,6 +3,7 @@ import 'package:get_storage/get_storage.dart';
 import 'package:nat_corp_admin/calls/meeting_screen.dart';
 import 'package:nat_corp_admin/services/data/api.dart';
 import 'package:nat_corp_admin/widgets/text_widget.dart';
+import 'package:videosdk/videosdk.dart';
 
 class VideoSDKQuickStart extends StatefulWidget {
   const VideoSDKQuickStart({Key? key}) : super(key: key);
@@ -73,39 +74,22 @@ class JoinScreen extends StatelessWidget {
 
   final box = GetStorage();
 
+  late Room room;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        children: [
-          const SizedBox(height: 50),
-          TextBold(
-              text: 'Meeting ID: ${box.read('meetingId')}',
-              fontSize: 18,
-              color: Colors.grey),
-          const SizedBox(height: 20),
-          Padding(
-            padding: const EdgeInsets.only(left: 20, right: 20),
-            child: TextField(
-                decoration: const InputDecoration(
-                  hintText: "Meeting ID",
-                  border: OutlineInputBorder(),
-                ),
-                onChanged: onMeetingIdChanged),
-          ),
-          const SizedBox(height: 30),
-          MaterialButton(
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(100),
-            ),
-            color: Colors.teal[700],
-            height: 50,
-            minWidth: 200,
-            child: TextRegular(text: 'Join', fontSize: 14, color: Colors.white),
-            onPressed: onJoinMeetingButtonPressed,
-          )
-        ],
+        body: Center(
+      child: MaterialButton(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(100),
+        ),
+        color: Colors.teal[700],
+        height: 50,
+        minWidth: 200,
+        child: TextRegular(text: room.id, fontSize: 14, color: Colors.white),
+        onPressed: onCreateMeetingButtonPressed,
       ),
-    );
+    ));
   }
 }
