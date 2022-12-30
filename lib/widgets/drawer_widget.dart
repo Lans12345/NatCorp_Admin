@@ -122,8 +122,8 @@ class _MyDrawerState extends State<DrawerWidget> {
                 color: Colors.grey,
               ),
               onTap: () {
-                Navigator.of(context).pushReplacement(MaterialPageRoute(
-                    builder: (context) => const InterviewPage()));
+                Navigator.of(context).pushReplacement(
+                    MaterialPageRoute(builder: (context) => InterviewPage()));
               },
             ),
             ListTile(

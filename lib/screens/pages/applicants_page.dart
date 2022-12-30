@@ -177,7 +177,7 @@ class _DashboardPageState extends State<ApplicantsPage> {
                                                                 data.docs[index]
                                                                     [
                                                                     'uid'], // change to userId
-                                                                room.id,
+                                                                meetingId,
                                                                 data.docs[index]
                                                                     ['profile'],
                                                                 dateAndTime);

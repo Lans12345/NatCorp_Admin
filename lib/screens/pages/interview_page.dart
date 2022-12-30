@@ -1,14 +1,18 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:get_storage/get_storage.dart';
 
 import 'package:intl/intl.dart';
+import 'package:nat_corp_admin/calls/join_screen.dart';
 import 'package:nat_corp_admin/utils/colors.dart';
 import 'package:nat_corp_admin/widgets/drawer_widget.dart';
 import 'package:nat_corp_admin/widgets/text_widget.dart';
 
 class InterviewPage extends StatelessWidget {
-  const InterviewPage({Key? key}) : super(key: key);
+  InterviewPage({Key? key}) : super(key: key);
+
+  final box = GetStorage();
 
   @override
   Widget build(BuildContext context) {
@@ -58,7 +62,14 @@ class InterviewPage extends StatelessWidget {
                   padding: const EdgeInsets.fromLTRB(10, 5, 10, 5),
                   child: ListTile(
                     trailing: IconButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        box.write(
+                            'meetingId', data.docs[index]['interviewCode']);
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (_) => VideoSDKQuickStart()));
+                      },
                       icon: const Icon(
                         Icons.video_call_outlined,
                         size: 32,
