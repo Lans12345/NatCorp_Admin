@@ -6,9 +6,8 @@ import 'package:nat_corp_admin/services/data/api.dart';
 import 'package:nat_corp_admin/services/repositories/add_interview.dart';
 import 'package:nat_corp_admin/widgets/button_widget.dart';
 import 'package:nat_corp_admin/widgets/text_widget.dart';
-import 'package:videosdk/videosdk.dart';
+// import 'package:videosdk/videosdk.dart';
 
-import '../../calls/join_screen.dart';
 import '../../widgets/app_bar.dart';
 import '../../widgets/drawer_widget.dart';
 
@@ -27,7 +26,7 @@ class _DashboardPageState extends State<ApplicantsPage> {
 
   String meetingId = "";
 
-  late Room room;
+  // late Room room;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -83,7 +82,7 @@ class _DashboardPageState extends State<ApplicantsPage> {
                                                     mainAxisAlignment:
                                                         MainAxisAlignment.start,
                                                     children: [
-                                                      SizedBox(
+                                                      const SizedBox(
                                                         height: 20,
                                                       ),
                                                       TextBold(
@@ -91,7 +90,7 @@ class _DashboardPageState extends State<ApplicantsPage> {
                                                               'Interview Details',
                                                           fontSize: 18,
                                                           color: Colors.black),
-                                                      SizedBox(
+                                                      const SizedBox(
                                                         height: 50,
                                                       ),
                                                       Padding(

@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
 
 import 'package:intl/intl.dart';
-import 'package:nat_corp_admin/calls/join_screen.dart';
 import 'package:nat_corp_admin/utils/colors.dart';
 import 'package:nat_corp_admin/widgets/drawer_widget.dart';
 import 'package:nat_corp_admin/widgets/text_widget.dart';
@@ -65,10 +64,10 @@ class InterviewPage extends StatelessWidget {
                       onPressed: () {
                         box.write(
                             'meetingId', data.docs[index]['interviewCode']);
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (_) => VideoSDKQuickStart()));
+                        // Navigator.push(
+                        //     context,
+                        //     MaterialPageRoute(
+                        //         builder: (_) => VideoSDKQuickStart()));
                       },
                       icon: const Icon(
                         Icons.video_call_outlined,
