@@ -206,9 +206,14 @@ class _DashboardPageState extends State<UsersPage> {
                                                                           data.docs[i]
                                                                               [
                                                                               'email'],
-                                                                          data.docs[i]
+                                                                          data
+                                                                              .docs[
+                                                                                  i]
                                                                               .id,
-                                                                          reason);
+                                                                          reason,
+                                                                          data.docs[i]
+                                                                              [
+                                                                              'nirthdate']);
                                                                       Navigator.of(
                                                                               context)
                                                                           .pop();
@@ -312,9 +317,14 @@ class _DashboardPageState extends State<UsersPage> {
                                                                           data.docs[i]
                                                                               [
                                                                               'email'],
-                                                                          data.docs[i]
+                                                                          data
+                                                                              .docs[
+                                                                                  i]
                                                                               .id,
-                                                                          reason);
+                                                                          reason,
+                                                                          data.docs[i]
+                                                                              [
+                                                                              'nirthdate']);
                                                                       Navigator.of(
                                                                               context)
                                                                           .pop();
@@ -420,9 +430,14 @@ class _DashboardPageState extends State<UsersPage> {
                                                                           data.docs[i]
                                                                               [
                                                                               'email'],
-                                                                          data.docs[i]
+                                                                          data
+                                                                              .docs[
+                                                                                  i]
                                                                               .id,
-                                                                          reason);
+                                                                          reason,
+                                                                          data.docs[i]
+                                                                              [
+                                                                              'nirthdate']);
                                                                       Navigator.of(
                                                                               context)
                                                                           .pop();
