@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:nat_corp_admin/screens/pages/add_company_screen.dart';
 import 'package:nat_corp_admin/utils/colors.dart';
+import 'package:nat_corp_admin/widgets/button_widget.dart';
 import 'package:nat_corp_admin/widgets/text_widget.dart';
 
 import '../../widgets/app_bar.dart';
@@ -16,6 +17,8 @@ class CompaniesPage extends StatefulWidget {
 }
 
 class _DashboardPageState extends State<CompaniesPage> {
+  late String upPos;
+  late String upDesc;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -64,25 +67,117 @@ class _DashboardPageState extends State<CompaniesPage> {
                             context: context,
                             builder: (context) {
                               return SizedBox(
-                                height: 100,
-                                child: ListTile(
-                                  onTap: () {
-                                    FirebaseFirestore.instance
-                                        .collection('Company')
-                                        .doc(data.docs[index].id)
-                                        .delete();
-                                    Fluttertoast.showToast(
-                                        msg: 'Deleted Succesfully!');
-                                    Navigator.of(context).pop();
-                                  },
-                                  leading: TextRegular(
-                                      text: 'Delete',
-                                      fontSize: 16,
-                                      color: Colors.red),
-                                  trailing: Icon(
-                                    Icons.delete,
-                                    color: Colors.red,
-                                  ),
+                                height: 150,
+                                child: Column(
+                                  children: [
+                                    ListTile(
+                                      onTap: () {
+                                        FirebaseFirestore.instance
+                                            .collection('Company')
+                                            .doc(data.docs[index].id)
+                                            .delete();
+                                        Fluttertoast.showToast(
+                                            msg: 'Deleted Succesfully!');
+                                        Navigator.of(context).pop();
+                                      },
+                                      leading: TextRegular(
+                                          text: 'Delete',
+                                          fontSize: 16,
+                                          color: Colors.red),
+                                      trailing: const Icon(
+                                        Icons.delete,
+                                        color: Colors.red,
+                                      ),
+                                    ),
+                                    ListTile(
+                                      onTap: () {
+                                        showDialog(
+                                            context: context,
+                                            builder: (context) {
+                                              return Dialog(
+                                                child: SizedBox(
+                                                  height: 300,
+                                                  child: Column(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .center,
+                                                    children: [
+                                                      Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                    .fromLTRB(
+                                                                20, 10, 20, 10),
+                                                        child: TextFormField(
+                                                          onChanged: (_input) {
+                                                            upPos = _input;
+                                                          },
+                                                          decoration:
+                                                              const InputDecoration(
+                                                            labelText:
+                                                                'Available Positions:',
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                    .fromLTRB(
+                                                                20, 10, 20, 10),
+                                                        child: TextFormField(
+                                                          onChanged: (_input) {
+                                                            upDesc = _input;
+                                                          },
+                                                          decoration:
+                                                              const InputDecoration(
+                                                            labelText:
+                                                                'Position Description:',
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      const SizedBox(
+                                                        height: 20,
+                                                      ),
+                                                      ButtonWidget(
+                                                          onPressed: () {
+                                                            FirebaseFirestore
+                                                                .instance
+                                                                .collection(
+                                                                    'Company')
+                                                                .doc(data
+                                                                    .docs[index]
+                                                                    .id)
+                                                                .update({
+                                                              'position': upPos,
+                                                              'positionDetails':
+                                                                  upDesc
+                                                            });
+                                                            Fluttertoast.showToast(
+                                                                msg:
+                                                                    'Updated Succesfully!');
+                                                            Navigator.of(
+                                                                    context)
+                                                                .pop();
+                                                            Navigator.of(
+                                                                    context)
+                                                                .pop();
+                                                          },
+                                                          text: 'Update')
+                                                    ],
+                                                  ),
+                                                ),
+                                              );
+                                            });
+                                      },
+                                      leading: TextRegular(
+                                          text: 'Updated',
+                                          fontSize: 16,
+                                          color: Colors.blue),
+                                      trailing: const Icon(
+                                        Icons.update,
+                                        color: Colors.blue,
+                                      ),
+                                    ),
+                                  ],
                                 ),
                               );
                             });

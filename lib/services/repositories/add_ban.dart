@@ -13,7 +13,7 @@ Future addBan(String name, String email, String uid, String message,
     'dateTime': DateTime.now(),
     'date': dt.month,
     'message': message,
-    'birthdate': birthdate,
+    'birthdate': birthdate
   };
 
   await docUser.set(json);

@@ -2,9 +2,11 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:date_time_picker/date_time_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:nat_corp_admin/services/data/api.dart';
 import 'package:nat_corp_admin/services/repositories/add_interview.dart';
 import 'package:nat_corp_admin/widgets/button_widget.dart';
 import 'package:nat_corp_admin/widgets/text_widget.dart';
+// import 'package:videosdk/videosdk.dart';
 
 import '../../widgets/app_bar.dart';
 import '../../widgets/drawer_widget.dart';
@@ -17,9 +19,14 @@ class ApplicantsPage extends StatefulWidget {
 }
 
 class _DashboardPageState extends State<ApplicantsPage> {
+  late final void Function() onCreateMeetingButtonPressed;
   late String interviewCode = '';
 
   late String dateAndTime = '';
+
+  String meetingId = "";
+
+  // late Room room;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -73,34 +80,18 @@ class _DashboardPageState extends State<ApplicantsPage> {
                                                   height: 300,
                                                   child: Column(
                                                     mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .center,
+                                                        MainAxisAlignment.start,
                                                     children: [
+                                                      const SizedBox(
+                                                        height: 20,
+                                                      ),
                                                       TextBold(
                                                           text:
                                                               'Interview Details',
                                                           fontSize: 18,
                                                           color: Colors.black),
-                                                      Padding(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                    .fromLTRB(
-                                                                20, 10, 20, 20),
-                                                        child: TextFormField(
-                                                          decoration:
-                                                              InputDecoration(
-                                                            label: TextBold(
-                                                                text:
-                                                                    'Interview Code',
-                                                                fontSize: 12,
-                                                                color: Colors
-                                                                    .grey),
-                                                          ),
-                                                          onChanged: (_input) {
-                                                            interviewCode =
-                                                                _input;
-                                                          },
-                                                        ),
+                                                      const SizedBox(
+                                                        height: 50,
                                                       ),
                                                       Padding(
                                                         padding:
@@ -153,7 +144,14 @@ class _DashboardPageState extends State<ApplicantsPage> {
                                                         ),
                                                       ),
                                                       ButtonWidget(
-                                                          onPressed: () {
+                                                          onPressed: () async {
+                                                            meetingId =
+                                                                await createMeeting();
+                                                            // Navigator.push(
+                                                            //     context,
+                                                            //     MaterialPageRoute(
+                                                            //         builder: (_) =>
+                                                            //             VideoSDKQuickStart()));
                                                             addInterview(
                                                                 data.docs[index][
                                                                     'companyName'],
@@ -178,7 +176,7 @@ class _DashboardPageState extends State<ApplicantsPage> {
                                                                 data.docs[index]
                                                                     [
                                                                     'uid'], // change to userId
-                                                                interviewCode,
+                                                                meetingId,
                                                                 data.docs[index]
                                                                     ['profile'],
                                                                 dateAndTime);
@@ -218,7 +216,7 @@ class _DashboardPageState extends State<ApplicantsPage> {
                                                                 toastLength: Toast
                                                                     .LENGTH_LONG,
                                                                 msg:
-                                                                    'Interview Code - $interviewCode\nSchedule: $dateAndTime');
+                                                                    'Interview Code - $meetingId\nSchedule: $dateAndTime');
                                                           },
                                                           text: 'Continue'),
                                                     ],
