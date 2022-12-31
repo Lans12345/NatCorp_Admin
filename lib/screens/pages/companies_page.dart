@@ -169,7 +169,7 @@ class _DashboardPageState extends State<CompaniesPage> {
                                             });
                                       },
                                       leading: TextRegular(
-                                          text: 'Updated',
+                                          text: 'Update',
                                           fontSize: 16,
                                           color: Colors.blue),
                                       trailing: const Icon(

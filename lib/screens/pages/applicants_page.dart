@@ -2,6 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:date_time_picker/date_time_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:get_storage/get_storage.dart';
+import 'package:nat_corp_admin/screens/pages/document_page.dart';
 import 'package:nat_corp_admin/services/data/api.dart';
 import 'package:nat_corp_admin/services/repositories/add_interview.dart';
 import 'package:nat_corp_admin/widgets/button_widget.dart';
@@ -25,6 +27,8 @@ class _DashboardPageState extends State<ApplicantsPage> {
   late String dateAndTime = '';
 
   String meetingId = "";
+
+  final box = GetStorage();
 
   // late Room room;
   @override
@@ -56,6 +60,7 @@ class _DashboardPageState extends State<ApplicantsPage> {
             }
 
             final data = snapshot.requireData;
+
             return ListView.builder(
                 itemCount: snapshot.data!.size,
                 itemBuilder: ((context, index) {
@@ -67,7 +72,7 @@ class _DashboardPageState extends State<ApplicantsPage> {
                             context: context,
                             builder: ((context) {
                               return SizedBox(
-                                height: 150,
+                                height: 200,
                                 child: Column(
                                   children: [
                                     ListTile(
@@ -233,6 +238,24 @@ class _DashboardPageState extends State<ApplicantsPage> {
                                       trailing: const Icon(
                                         Icons.check,
                                         color: Colors.green,
+                                      ),
+                                    ),
+                                    const Divider(),
+                                    ListTile(
+                                      onTap: (() {
+                                        box.write('data', data.docs[index]);
+                                        Navigator.of(context).push(
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    DocumentPage()));
+                                      }),
+                                      leading: TextBold(
+                                          text: 'Applicant Documents',
+                                          fontSize: 14,
+                                          color: Colors.blue),
+                                      trailing: const Icon(
+                                        Icons.attach_file,
+                                        color: Colors.blue,
                                       ),
                                     ),
                                     const Divider(),

@@ -64,10 +64,10 @@ class InterviewPage extends StatelessWidget {
                       onPressed: () {
                         box.write(
                             'meetingId', data.docs[index]['interviewCode']);
-                        // Navigator.push(
-                        //     context,
-                        //     MaterialPageRoute(
-                        //         builder: (_) => VideoSDKQuickStart()));
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (_) => VideoSDKQuickStart()));
                       },
                       icon: const Icon(
                         Icons.video_call_outlined,
