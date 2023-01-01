@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:nat_corp_admin/calls/meeting_screen.dart';
 import 'package:nat_corp_admin/utils/colors.dart';
-
-import '../services/data/api.dart';
 
 import '../widgets/text_widget.dart';
 
@@ -37,27 +34,27 @@ class _VideoSDKQuickStartState extends State<VideoSDKQuickStart> {
           },
         ),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: isMeetingActive
-            ? MeetingScreen(
-                meetingId: meetingId,
-                token: token,
-                leaveMeeting: () {
-                  setState(() => isMeetingActive = false);
-                },
-              )
-            : JoinScreen(
-                onMeetingIdChanged: (value) => meetingId = value,
-                onCreateMeetingButtonPressed: () async {
-                  meetingId = await createMeeting();
-                  setState(() => isMeetingActive = true);
-                },
-                onJoinMeetingButtonPressed: () {
-                  setState(() => isMeetingActive = true);
-                },
-              ),
-      ),
+      // body: Padding(
+      //   padding: const EdgeInsets.all(16.0),
+      //   child: isMeetingActive
+      //       ? MeetingScreen(
+      //           meetingId: meetingId,
+      //           token: token,
+      //           leaveMeeting: () {
+      //             setState(() => isMeetingActive = false);
+      //           },
+      //         )
+      //       : JoinScreen(
+      //           onMeetingIdChanged: (value) => meetingId = value,
+      //           onCreateMeetingButtonPressed: () async {
+      //             meetingId = await createMeeting();
+      //             setState(() => isMeetingActive = true);
+      //           },
+      //           onJoinMeetingButtonPressed: () {
+      //             setState(() => isMeetingActive = true);
+      //           },
+      //         ),
+      // ),
     );
   }
 }
