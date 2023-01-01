@@ -3,12 +3,13 @@ import 'package:date_time_picker/date_time_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:nat_corp_admin/calls/join_screen.dart';
 import 'package:nat_corp_admin/screens/pages/document_page.dart';
 import 'package:nat_corp_admin/services/data/api.dart';
 import 'package:nat_corp_admin/services/repositories/add_interview.dart';
 import 'package:nat_corp_admin/widgets/button_widget.dart';
 import 'package:nat_corp_admin/widgets/text_widget.dart';
-// import 'package:videosdk/videosdk.dart';
+import 'package:videosdk/videosdk.dart';
 
 import '../../widgets/app_bar.dart';
 import '../../widgets/drawer_widget.dart';
@@ -152,11 +153,11 @@ class _DashboardPageState extends State<ApplicantsPage> {
                                                           onPressed: () async {
                                                             meetingId =
                                                                 await createMeeting();
-                                                            // Navigator.push(
-                                                            //     context,
-                                                            //     MaterialPageRoute(
-                                                            //         builder: (_) =>
-                                                            //             VideoSDKQuickStart()));
+                                                            Navigator.push(
+                                                                context,
+                                                                MaterialPageRoute(
+                                                                    builder: (_) =>
+                                                                        const VideoSDKQuickStart()));
                                                             addInterview(
                                                                 data.docs[index][
                                                                     'companyName'],

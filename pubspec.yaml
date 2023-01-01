@@ -48,7 +48,7 @@ dependencies:
   fluttertoast:
   date_time_picker:
   agora_uikit:
-  # videosdk: ^1.0.9
+  videosdk: ^1.0.9
 
 dev_dependencies:
   flutter_test:
