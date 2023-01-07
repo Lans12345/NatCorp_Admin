@@ -68,7 +68,7 @@ class InterviewPage extends StatelessWidget {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (_) => VideoSDKQuickStart()));
+                                builder: (_) => const VideoSDKQuickStart()));
                       },
                       icon: const Icon(
                         Icons.video_call_outlined,

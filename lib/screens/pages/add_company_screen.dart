@@ -111,12 +111,12 @@ class _AddCompanyState extends State<AddCompany> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
               TextRegular(
                   text: 'Add Company Logo', fontSize: 12, color: Colors.grey),
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
               hasLoaded
@@ -132,24 +132,25 @@ class _AddCompanyState extends State<AddCompany> {
                     )
                   : GestureDetector(
                       onTap: () {
-                        uploadPicture('camera');
+                        uploadPicture('gallery');
                       },
                       child: Container(
-                        child: Icon(
+                        child: const Icon(
                           Icons.add,
                           color: Colors.white,
                         ),
                         height: 150,
                         width: 150,
-                        decoration: BoxDecoration(color: KgreyColor),
+                        decoration: const BoxDecoration(color: KgreyColor),
                       ),
                     ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
               Padding(
                 padding: const EdgeInsets.fromLTRB(30, 10, 30, 10),
                 child: TextFormField(
+                  textCapitalization: TextCapitalization.sentences,
                   style: const TextStyle(
                       color: Colors.black, fontFamily: 'QRegular'),
                   onChanged: (input) {
@@ -267,37 +268,63 @@ class _AddCompanyState extends State<AddCompany> {
                   ),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
               ButtonWidget(
                   onPressed: () {
-                    showDialog(
-                        barrierDismissible: false,
-                        context: context,
-                        builder: (context) => AlertDialog(
-                              content: TextRegular(
-                                  text: "Company Added Succesfully!",
-                                  color: Colors.black,
-                                  fontSize: 12),
-                              actions: <Widget>[
-                                MaterialButton(
-                                  onPressed: () {
-                                    addJob(position);
-                                    addCompany(name, imageURL, positionDetails,
-                                        position, address);
-                                    Navigator.of(context).pushReplacement(
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                const CompaniesPage()));
-                                  },
-                                  child: TextBold(
-                                      text: 'Continue',
-                                      color: Colors.black,
-                                      fontSize: 12),
-                                ),
-                              ],
-                            ));
+                    if (imageURL == '' ||
+                        name == '' ||
+                        address == '' ||
+                        position == '' ||
+                        positionDetails == '') {
+                      showDialog(
+                          context: context,
+                          builder: (context) => AlertDialog(
+                                content: TextRegular(
+                                    text: "Cannot Procceed.\nMissing Fields",
+                                    color: Colors.black,
+                                    fontSize: 12),
+                                actions: <Widget>[
+                                  MaterialButton(
+                                    onPressed: () {
+                                      Navigator.of(context).pop();
+                                    },
+                                    child: TextBold(
+                                        text: 'Close',
+                                        color: Colors.black,
+                                        fontSize: 12),
+                                  ),
+                                ],
+                              ));
+                    } else {
+                      showDialog(
+                          barrierDismissible: false,
+                          context: context,
+                          builder: (context) => AlertDialog(
+                                content: TextRegular(
+                                    text: "Company Added Succesfully!",
+                                    color: Colors.black,
+                                    fontSize: 12),
+                                actions: <Widget>[
+                                  MaterialButton(
+                                    onPressed: () {
+                                      addJob(position);
+                                      addCompany(name, imageURL,
+                                          positionDetails, position, address);
+                                      Navigator.of(context).pushReplacement(
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  const CompaniesPage()));
+                                    },
+                                    child: TextBold(
+                                        text: 'Continue',
+                                        color: Colors.black,
+                                        fontSize: 12),
+                                  ),
+                                ],
+                              ));
+                    }
                   },
                   text: 'Continue'),
             ],

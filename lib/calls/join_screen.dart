@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:nat_corp_admin/calls/meeting_screen.dart';
+import 'package:nat_corp_admin/services/data/api.dart';
 import 'package:nat_corp_admin/utils/colors.dart';
 
-import '../services/data/api.dart';
-
 import '../widgets/text_widget.dart';
-import 'meeting_screen.dart';
 
 class VideoSDKQuickStart extends StatefulWidget {
   const VideoSDKQuickStart({Key? key}) : super(key: key);

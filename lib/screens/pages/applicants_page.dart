@@ -2,13 +2,15 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:date_time_picker/date_time_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:get_storage/get_storage.dart';
+import 'package:nat_corp_admin/calls/join_screen.dart';
+import 'package:nat_corp_admin/screens/pages/document_page.dart';
 import 'package:nat_corp_admin/services/data/api.dart';
 import 'package:nat_corp_admin/services/repositories/add_interview.dart';
 import 'package:nat_corp_admin/widgets/button_widget.dart';
 import 'package:nat_corp_admin/widgets/text_widget.dart';
 import 'package:videosdk/videosdk.dart';
 
-import '../../calls/join_screen.dart';
 import '../../widgets/app_bar.dart';
 import '../../widgets/drawer_widget.dart';
 
@@ -27,7 +29,9 @@ class _DashboardPageState extends State<ApplicantsPage> {
 
   String meetingId = "";
 
-  late Room room;
+  final box = GetStorage();
+
+  // late Room room;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -57,6 +61,7 @@ class _DashboardPageState extends State<ApplicantsPage> {
             }
 
             final data = snapshot.requireData;
+
             return ListView.builder(
                 itemCount: snapshot.data!.size,
                 itemBuilder: ((context, index) {
@@ -68,7 +73,7 @@ class _DashboardPageState extends State<ApplicantsPage> {
                             context: context,
                             builder: ((context) {
                               return SizedBox(
-                                height: 150,
+                                height: 200,
                                 child: Column(
                                   children: [
                                     ListTile(
@@ -83,7 +88,7 @@ class _DashboardPageState extends State<ApplicantsPage> {
                                                     mainAxisAlignment:
                                                         MainAxisAlignment.start,
                                                     children: [
-                                                      SizedBox(
+                                                      const SizedBox(
                                                         height: 20,
                                                       ),
                                                       TextBold(
@@ -91,7 +96,7 @@ class _DashboardPageState extends State<ApplicantsPage> {
                                                               'Interview Details',
                                                           fontSize: 18,
                                                           color: Colors.black),
-                                                      SizedBox(
+                                                      const SizedBox(
                                                         height: 50,
                                                       ),
                                                       Padding(
@@ -148,11 +153,11 @@ class _DashboardPageState extends State<ApplicantsPage> {
                                                           onPressed: () async {
                                                             meetingId =
                                                                 await createMeeting();
-                                                            // Navigator.push(
-                                                            //     context,
-                                                            //     MaterialPageRoute(
-                                                            //         builder: (_) =>
-                                                            //             VideoSDKQuickStart()));
+                                                            Navigator.push(
+                                                                context,
+                                                                MaterialPageRoute(
+                                                                    builder: (_) =>
+                                                                        const VideoSDKQuickStart()));
                                                             addInterview(
                                                                 data.docs[index][
                                                                     'companyName'],
@@ -234,6 +239,24 @@ class _DashboardPageState extends State<ApplicantsPage> {
                                       trailing: const Icon(
                                         Icons.check,
                                         color: Colors.green,
+                                      ),
+                                    ),
+                                    const Divider(),
+                                    ListTile(
+                                      onTap: (() {
+                                        box.write('data', data.docs[index]);
+                                        Navigator.of(context).push(
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    DocumentPage()));
+                                      }),
+                                      leading: TextBold(
+                                          text: 'Applicant Documents',
+                                          fontSize: 14,
+                                          color: Colors.blue),
+                                      trailing: const Icon(
+                                        Icons.attach_file,
+                                        color: Colors.blue,
                                       ),
                                     ),
                                     const Divider(),
